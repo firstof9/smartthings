@@ -3,11 +3,10 @@ from datetime import timedelta
 import re
 
 from homeassistant.const import (
-    ELECTRIC_POTENTIAL_VOLT,
     PERCENTAGE,
-    POWER_WATT,
-    TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
+    UnitOfElectricPotential,
+    UnitOfPower,
+    UnitOfTemperature,
 )
 
 DOMAIN = "smartthings"
@@ -60,16 +59,17 @@ IGNORED_CAPABILITIES = [
 ]
 
 UNIT_MAP = {
-    "C": TEMP_CELSIUS,
-    "F": TEMP_FAHRENHEIT,
+    "C": UnitOfTemperature.CELSIUS,
+    "F": UnitOfTemperature.FAHRENHEIT,
     "Hour": "Hour",
     "minute": "Minute",
     "%": PERCENTAGE,
-    "W": POWER_WATT,
-    "V": ELECTRIC_POTENTIAL_VOLT,
+    "W": UnitOfPower.WATT,
+    "V": UnitOfElectricPotential.VOLT,
 }
 
 TOKEN_REFRESH_INTERVAL = timedelta(days=14)
 
 VAL_UID = "^(?:([0-9a-fA-F]{32})|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))$"
 VAL_UID_MATCHER = re.compile(VAL_UID)
+FRIDGE_LIST = ["22K_REF_LCD_FHUB7.0", "23K_REF_LCD_FHUB8.0","21K_REF_LCD_FHUB6.0", "ARTIK051_REF_17K"]
