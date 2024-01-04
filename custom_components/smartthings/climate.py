@@ -41,11 +41,11 @@ STATE_TO_MODE = {
 }
 
 OPERATING_STATE_TO_ACTION = {
-    "cooling": HVACAction.COOL,
+    "cooling": HVACAction.COOLING,
     "fan only": HVACAction.FAN,
     "heating": HVACAction.HEAT,
     "idle": HVACAction.IDLE,
-    "pending cool": HVACAction.COOL,
+    "pending cool": HVACAction.COOLING,
     "pending heat": HVACAction.HEAT,
     "vent economizer": HVACAction.FAN,
 }
