@@ -13,7 +13,7 @@ from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
 )
-from homeassistant.const import ENTITY_CATEGORY_DIAGNOSTIC
+from homeassistant.const import EntityCategory
 
 from . import SmartThingsEntity
 from .const import DATA_BROKERS, DOMAIN, FRIDGE_LIST
@@ -41,7 +41,7 @@ ATTRIB_TO_CLASS = {
     Attribute.water: BinarySensorDeviceClass.MOISTURE,
 }
 ATTRIB_TO_ENTTIY_CATEGORY = {
-    Attribute.tamper: ENTITY_CATEGORY_DIAGNOSTIC,
+    Attribute.tamper: EntityCategory.DIAGNOSTIC,
 }
 
 async def async_setup_entry(hass, config_entry, async_add_entities):

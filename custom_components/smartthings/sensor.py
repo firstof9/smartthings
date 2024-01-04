@@ -384,7 +384,7 @@ CAPABILITY_TO_SENSORS = {
             None,
             None,
             None,
-            EntityCategory.CONFIG,
+            None,
         )
     ],
     Capability.robot_cleaner_movement: [
@@ -404,7 +404,7 @@ CAPABILITY_TO_SENSORS = {
             None,
             None,
             None,
-            EntityCategory.CONFIG,
+            None,
         )
     ],
     Capability.signal_strength: [
