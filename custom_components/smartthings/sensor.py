@@ -887,7 +887,7 @@ class SamsungOcfTemperatureSensor(SmartThingsEntity, SensorEntity):
     """Define Samsung OCF Temperature Sensor"""
 
     execute_state = 0
-    unit_state = ""
+    unit_state = "C"
     init_bool = False
 
     def __init__(
