@@ -18,22 +18,26 @@ from homeassistant.components.sensor import (
 )
 
 from homeassistant.const import (
+    UnitOfElectricCurrent,
+    UnitOfElectricPotential,
+    UnitOfEnergy,
+    UnitOfLength,
+    UnitOfMass,
+    UnitOfPower,
+    UnitOfTemperature,
+    UnitOfTime,
+    UnitOfVolume,
     AREA_SQUARE_METERS,
     CONCENTRATION_PARTS_PER_MILLION,
-    ELECTRIC_POTENTIAL_VOLT,
-    ENERGY_KILO_WATT_HOUR,
     LIGHT_LUX,
-    MASS_KILOGRAMS,
     PERCENTAGE,
-    POWER_WATT,
-    VOLUME_CUBIC_METERS,
 )
 
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.util import dt as dt_util
 
 from . import SmartThingsEntity
-from .const import DATA_BROKERS, DOMAIN, UNIT_MAP
+from .const import DATA_BROKERS, DOMAIN, UNIT_MAP, FRIDGE_LIST
 
 Map = namedtuple(
     "map", "attribute name default_unit device_class state_class entity_category"
@@ -88,7 +92,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.bmi_measurement,
             "Body Mass Index",
-            f"{MASS_KILOGRAMS}/{AREA_SQUARE_METERS}",
+            f"{UnitOfMass.KILOGRAMS}/{AREA_SQUARE_METERS}",
             None,
             SensorStateClass.MEASUREMENT,
             None,
@@ -98,7 +102,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.body_weight_measurement,
             "Body Weight",
-            MASS_KILOGRAMS,
+            UnitOfMass.KILOGRAMS,
             None,
             SensorStateClass.MEASUREMENT,
             None,
@@ -199,7 +203,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.energy,
             "Energy Meter",
-            ENERGY_KILO_WATT_HOUR,
+            UnitOfEnergy.KILO_WATT_HOUR,
             SensorDeviceClass.ENERGY,
             SensorStateClass.TOTAL_INCREASING,
             None,
@@ -229,7 +233,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.gas_meter,
             "Gas Meter",
-            ENERGY_KILO_WATT_HOUR,
+            UnitOfEnergy.KILO_WATT_HOUR,
             None,
             SensorStateClass.MEASUREMENT,
             None,
@@ -248,7 +252,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.gas_meter_volume,
             "Gas Meter Volume",
-            VOLUME_CUBIC_METERS,
+            UnitOfVolume.CUBIC_METERS,
             None,
             SensorStateClass.MEASUREMENT,
             None,
@@ -326,7 +330,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.oven_setpoint,
             "Temperature Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             None,
@@ -337,7 +341,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.power,
             "Power Meter",
-            POWER_WATT,
+            UnitOfPower.WATT,
             SensorDeviceClass.POWER,
             SensorStateClass.MEASUREMENT,
             None,
@@ -357,7 +361,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.refrigeration_setpoint,
             "Refrigeration Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             None,
@@ -380,7 +384,7 @@ CAPABILITY_TO_SENSORS = {
             None,
             None,
             None,
-            EntityCategory.CONFIG,
+            None,
         )
     ],
     Capability.robot_cleaner_movement: [
@@ -400,7 +404,7 @@ CAPABILITY_TO_SENSORS = {
             None,
             None,
             None,
-            EntityCategory.CONFIG,
+            None,
         )
     ],
     Capability.signal_strength: [
@@ -428,7 +432,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.temperature,
             "Temperature Measurement",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             SensorStateClass.MEASUREMENT,
             None,
@@ -438,7 +442,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.cooling_setpoint,
             "Thermostat Cooling Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             None,
@@ -458,7 +462,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.heating_setpoint,
             "Thermostat Heating Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             EntityCategory.CONFIG,
@@ -488,7 +492,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.thermostat_setpoint,
             "Thermostat Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             EntityCategory.CONFIG,
@@ -523,7 +527,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             Attribute.voltage,
             "Voltage Measurement",
-            ELECTRIC_POTENTIAL_VOLT,
+            UnitOfElectricPotential.VOLT,
             SensorDeviceClass.VOLTAGE,
             SensorStateClass.MEASUREMENT,
             None,
@@ -563,7 +567,7 @@ CAPABILITY_TO_SENSORS = {
         Map(
             "temperatureSetpoint",
             "Meat Probe Setpoint",
-            None,
+            UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
             None,
             None,
@@ -591,7 +595,6 @@ POWER_CONSUMPTION_REPORT_NAMES = [
     "powerEnergy",
     "energySaved",
 ]
-
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Add binary sensors for a config entry."""
@@ -652,7 +655,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                         ),
                     ]
                 )
-            elif model in ("21K_REF_LCD_FHUB6.0", "ARTIK051_REF_17K"):
+            elif model in FRIDGE_LIST:
                 sensors.extend(
                     [
                         SamsungOcfTemperatureSensor(
@@ -823,8 +826,8 @@ class SmartThingsPowerConsumptionSensor(SmartThingsEntity, SensorEntity):
     def native_unit_of_measurement(self):
         """Return the unit this state is expressed in."""
         if self.report_name == "power":
-            return POWER_WATT
-        return ENERGY_KILO_WATT_HOUR
+            return UnitOfPower.WATT
+        return UnitOfEnergy.KILO_WATT_HOUR
 
     @property
     def icon(self) -> str | None:
@@ -884,7 +887,7 @@ class SamsungOcfTemperatureSensor(SmartThingsEntity, SensorEntity):
     """Define Samsung OCF Temperature Sensor"""
 
     execute_state = 0
-    unit_state = ""
+    unit_state = "C"
     init_bool = False
 
     def __init__(

@@ -17,7 +17,7 @@ from homeassistant.components.sensor import SensorDeviceClass
 
 
 from . import SmartThingsEntity
-from .const import DATA_BROKERS, DOMAIN, UNIT_MAP
+from .const import DATA_BROKERS, DOMAIN, UNIT_MAP, FRIDGE_LIST
 
 from homeassistant.const import PERCENTAGE
 
@@ -72,7 +72,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
             and device.type == "OCF"
         ):
             model = device.status.attributes[Attribute.mnmo].value.split("|")[0]
-            if model in ("21K_REF_LCD_FHUB6.0", "ARTIK051_REF_17K"):
+            if model in FRIDGE_LIST:
                 numbers.extend(
                     [
                         SamsungOcfTemperatureNumber(

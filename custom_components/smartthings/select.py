@@ -42,6 +42,17 @@ CAPABILITY_TO_SELECT = {
             None,
         )
     ],
+    "samsungce.hoodFanSpeed": [
+        Map(
+            "hoodFanSpeed",
+            "supportedHoodFanSpeed",
+            "hoodFanSpeed",
+            int,
+            "Hood Fan Speed",
+            "mdi:fan",
+            None,
+        )
+    ],
 }
 
 
