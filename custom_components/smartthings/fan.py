@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 import math
 
-from pysmartthings import Capability
+from .pysmartthings import Capability
 
 from homeassistant.components.fan import  FanEntity, FanEntityFeature
 from homeassistant.util.percentage import (

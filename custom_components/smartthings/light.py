@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 from collections.abc import Sequence
 
-from pysmartthings import Capability
+from .pysmartthings import Capability
 
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,

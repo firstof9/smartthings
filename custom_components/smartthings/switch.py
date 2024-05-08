@@ -6,8 +6,8 @@ from collections.abc import Sequence
 
 import asyncio
 
-from pysmartthings import Capability, Attribute
-from pysmartthings.device import DeviceEntity
+from .pysmartthings import Capability, Attribute
+from .pysmartthings.device import DeviceEntity
 
 from homeassistant.components.switch import SwitchEntity
 

@@ -8,8 +8,8 @@ import asyncio
 
 from typing import Literal
 
-from pysmartthings import Attribute, Capability
-from pysmartthings.device import DeviceEntity
+from .pysmartthings import Attribute, Capability
+from .pysmartthings.device import DeviceEntity
 
 from homeassistant.components.number import NumberEntity, NumberMode
 

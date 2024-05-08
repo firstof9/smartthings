@@ -9,7 +9,7 @@ from uuid import uuid4
 from aiohttp import web
 from pysmartapp import Dispatcher, SmartAppManager
 from pysmartapp.const import SETTINGS_APP_ID
-from pysmartthings import (
+from .pysmartthings import (
     APP_TYPE_WEBHOOK,
     CLASSIFICATION_AUTOMATION,
     App,

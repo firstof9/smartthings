@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections import namedtuple
 from collections.abc import Sequence
 
-from pysmartthings.device import DeviceEntity
+from .pysmartthings.device import DeviceEntity
 
 from homeassistant.components.button import ButtonEntity
 

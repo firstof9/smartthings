@@ -5,7 +5,7 @@ import asyncio
 from collections.abc import Iterable, Sequence
 import logging
 
-from pysmartthings import Attribute, Capability
+from .pysmartthings import Attribute, Capability
 
 from homeassistant.components.climate import DOMAIN as CLIMATE_DOMAIN, ClimateEntity
 from homeassistant.components.climate.const import (
